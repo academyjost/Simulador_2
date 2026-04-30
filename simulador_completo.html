@@ -1,100 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Sistema de Créditos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Créditos - Senior Dev Edition</title>
+    <link rel="stylesheet" href="simulador_completo.css">
 </head>
 <body>
 
 <header>
-  <h1>Sistema Básico de Créditos</h1>
-   <link rel="stylesheet" href="simulador_completo.css">
+    <h1>Sistema Básico de Créditos</h1>
 </header>
 
 <nav>
-  <button>Parámetros</button>
-  <button>Clientes</button>
+    <button onclick="mostrarSeccion('parametros')">Parámetros</button>
+    <button onclick="mostrarSeccion('clientes')">Clientes</button>
+    <button onclick="mostrarSeccion('credito')">Simular Crédito</button>
 </nav>
 
-<section id="parametros">
-  <h2>Configurar Parámetros</h2>
-
-  <label>Tasa de interés:</label>
-  <input type="number" id="tasaInteres">
-  <span>%</span>
-
-  <br>
-  <button>Guardar tasa</button>
-
-  <p id="mensajeTasa"></p>
+<!-- SECCIÓN: PARÁMETROS -->
+<section id="parametros" class="activa">
+    <h2>Configurar Parámetros</h2>
+    <label>Tasa de interés (%):</label>
+    <input type="number" id="tasaInteres" min="10" max="20" value="15">
+    <button onclick="guardarTasa()">Guardar tasa</button>
+    <p id="mensajeTasa"></p>
 </section>
 
+<!-- SECCIÓN: CLIENTES -->
 <section id="clientes">
-  <h2>Registro de Clientes</h2>
+    <h2>Registro de Clientes</h2>
+    <div class="form-group">
+        <input type="text" id="cedula" placeholder="Cédula (ID único)">
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="text" id="apellido" placeholder="Apellido">
+        <input type="number" id="ingresos" placeholder="Ingresos mensuales">
+        <input type="number" id="egresos" placeholder="Egresos mensuales">
+    </div>
+    <br>
+    <button onclick="guardarCliente()">Guardar cliente</button>
+    <button onclick="limpiar()">Limpiar</button>
 
-  <input type="text" >
-  <input type="text" >
-  <input type="text" >
-  <input type="number" >
-  <input type="number" >
-
-  <br>
-
-  <button >Guardar cliente</button>
-  <button >Limpiar</button>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Cédula</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Ingresos</th>
-        <th>Egresos</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody id="tablaClientes">
-       <tr>
-          <td>1712345678</td>
-          <td>Juan</td>
-          <td>Pérez</td>
-          <td>1200</td>
-          <td>500</td>
-          <td>
-            <button>Actualizar</button>
-            <button>Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>1723456789</td>
-          <td>María</td>
-          <td>Gómez</td>
-          <td>1500</td>
-          <td>600</td>
-          <td>
-            <button>Actualizar</button>
-            <button>Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>1734567890</td>
-          <td>Carlos</td>
-          <td>Ramírez</td>
-          <td>900</td>
-          <td>350</td>
-          <td>
-            <button>Actualizar</button>
-            <button>Eliminar</button>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Ingresos</th>
+                <th>Egresos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaClientes">
+            <!-- Filas dinámicas aquí -->
+        </tbody>
+    </table>
 </section>
 
-
-
-<script src="simulador_completo.js"></script>
+<!-- Scripts al final para optimizar carga -->
 <script src="utilitarios.js"></script>
+<script src="simulador_completo.js"></script>
 </body>
 </html>
