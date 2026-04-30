@@ -1,19 +1,5 @@
-function recuperaraTexto(idComponente) {
-    return document.getElementById(idComponente).value;
-}
-
-function recuperarInt(idComponente) {
-    return parseInt(recuperaraTexto(idComponente));
-}
-
-function recuperarFloat(idComponente) {
-    return parseFloat(recuperaraTexto(idComponente));
-}
-
-function mostrarTexto(idComponente, mensaje) {
-    document.getElementById(idComponente).innerText = mensaje;
-}
-
-function mostrarTextoEnCaja(idComponente, mensaje) {
-    document.getElementById(idComponente).value = mensaje;
-}
+function recuperaraTexto(id){ return document.getElementById(id).value; }
+function recuperarInt(id){ return parseInt(recuperaraTexto(id)); }
+function recuperarFloat(id){ return parseFloat(recuperaraTexto(id)); }
+function mostrarTexto(id, m){ document.getElementById(id).innerText = m; }
+function mostrarTextoEnCaja(id, m){ document.getElementById(id).value = m; }

@@ -2,63 +2,87 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Créditos - Senior Dev Edition</title>
+    <title>Elite Credit Simulator</title>
     <link rel="stylesheet" href="simulador_completo.css">
 </head>
 <body>
 
 <header>
-    <h1>Sistema Básico de Créditos</h1>
+    <h1>Elite Credit System</h1>
 </header>
 
 <nav>
     <button onclick="mostrarSeccion('parametros')">Parámetros</button>
     <button onclick="mostrarSeccion('clientes')">Clientes</button>
-    <button onclick="mostrarSeccion('credito')">Simular Crédito</button>
+    <button onclick="mostrarSeccion('credito')">Solicitar Crédito</button>
+    <button onclick="mostrarSeccion('listaCreditos')">Historial</button>
 </nav>
 
-<!-- SECCIÓN: PARÁMETROS -->
+<!-- SECCIÓN 1: PARÁMETROS -->
 <section id="parametros" class="activa">
-    <h2>Configurar Parámetros</h2>
-    <label>Tasa de interés (%):</label>
-    <input type="number" id="tasaInteres" min="10" max="20" value="15">
-    <button onclick="guardarTasa()">Guardar tasa</button>
-    <p id="mensajeTasa"></p>
+    <h2>Configuración de Tasa</h2>
+    <div class="form-container">
+        <label>Tasa de interés anual:</label>
+        <input type="number" id="tasaInteres" min="10" max="20" value="15">
+        <span>%</span>
+        <button class="btn-oro" onclick="guardarTasa()">Guardar Tasa</button>
+        <p id="mensajeTasa"></p>
+    </div>
 </section>
 
-<!-- SECCIÓN: CLIENTES -->
+<!-- SECCIÓN 2: CLIENTES -->
 <section id="clientes">
     <h2>Registro de Clientes</h2>
-    <div class="form-group">
-        <input type="text" id="cedula" placeholder="Cédula (ID único)">
+    <div class="grid-form">
+        <input type="text" id="cedula" placeholder="Cédula">
         <input type="text" id="nombre" placeholder="Nombre">
         <input type="text" id="apellido" placeholder="Apellido">
-        <input type="number" id="ingresos" placeholder="Ingresos mensuales">
-        <input type="number" id="egresos" placeholder="Egresos mensuales">
+        <input type="number" id="ingresos" placeholder="Ingresos">
+        <input type="number" id="egresos" placeholder="Egresos">
     </div>
-    <br>
-    <button onclick="guardarCliente()">Guardar cliente</button>
-    <button onclick="limpiar()">Limpiar</button>
-
+    <div class="button-group">
+        <button class="btn-oro" onclick="guardarCliente()">Guardar Cliente</button>
+        <button onclick="limpiar()">Limpiar</button>
+    </div>
     <table>
         <thead>
             <tr>
-                <th>Cédula</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Ingresos</th>
-                <th>Egresos</th>
-                <th>Acciones</th>
+                <th>Cédula</th><th>Nombre</th><th>Ingresos</th><th>Egresos</th><th>Acciones</th>
             </tr>
         </thead>
-        <tbody id="tablaClientes">
-            <!-- Filas dinámicas aquí -->
-        </tbody>
+        <tbody id="tablaClientes"></tbody>
     </table>
 </section>
 
-<!-- Scripts al final para optimizar carga -->
+<!-- SECCIÓN 3: CRÉDITO[cite: 3] -->
+<section id="credito">
+    <h2>Simular Crédito</h2>
+    <input type="text" id="buscarCedulaCredito" placeholder="Cédula del cliente">
+    <button onclick="buscarClienteCredito()">Buscar cliente</button>
+    <div id="datosClienteCredito" class="card"></div>
+    
+    <div class="grid-form">
+        <input type="number" id="montoCredito" placeholder="Monto ($)">
+        <input type="number" id="plazoCredito" placeholder="Plazo (meses)">
+    </div>
+    <button class="btn-oro" onclick="calcularCredito()">Calcular</button>
+    <div id="resultadoCredito"></div>
+    <button id="btnSolicitarCredito" onclick="solicitarCredito()" disabled>Solicitar</button>
+</section>
+
+<!-- SECCIÓN 4: HISTORIAL[cite: 4] -->
+<section id="listaCreditos">
+    <h2>Créditos Registrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Cédula</th><th>Nombre</th><th>Monto</th><th>Tasa</th><th>Cuota</th>
+            </tr>
+        </thead>
+        <tbody id="tablaCreditos"></tbody>
+    </table>
+</section>
+
 <script src="utilitarios.js"></script>
 <script src="simulador_completo.js"></script>
 </body>
