@@ -48,17 +48,23 @@ function guardarCliente() {
     limpiar();
 }
 
+// --- ACTUALIZAR TABLA DE CLIENTES (Con botón borrar) ---
 function pintarClientes() {
     let tabla = document.getElementById("tablaClientes");
     tabla.innerHTML = "";
     clientes.forEach(c => {
         tabla.innerHTML += `<tr>
-            <td>${c.cedula}</td><td>${c.nombre}</td><td>${c.ingresos}</td><td>${c.egresos}</td>
-            <td><button onclick="seleccionarCliente('${c.cedula}')">Editar</button></td>
+            <td>${c.cedula}</td>
+            <td>${c.nombre}</td>
+            <td>${c.ingresos}</td>
+            <td>${c.egresos}</td>
+            <td>
+                <button onclick="seleccionarCliente('${c.cedula}')">Editar</button>
+                <button onclick="eliminarCliente('${c.cedula}')" style="background-color: #e74c3c; color: white; border: none; border-radius: 3px; cursor: pointer;">Borrar</button>
+            </td>
         </tr>`;
     });
 }
-
 function seleccionarCliente(cedula) {
     let c = clientes.find(cli => cli.cedula === cedula);
     if (c) {
@@ -92,26 +98,48 @@ function calcularCredito() {
     }
 }
 
+// --- SOLICITAR CRÉDITO (Con lógica de Aceptado/Rechazado) ---
 function solicitarCredito() {
     let monto = recuperarFloat("montoCredito");
-    let cuota = (monto + (monto * (tasaInteres/100))) / recuperarInt("plazoCredito");
+    let plazo = recuperarInt("plazoCredito");
+    let cuota = (monto + (monto * (tasaInteres / 100))) / plazo;
+
+    // LÓGICA DE VALIDACIÓN:
+    // Calculamos la capacidad de pago (Ingresos - Egresos)
+    let capacidadPago = clienteSeleccionado.ingresos - clienteSeleccionado.egresos;
+    let estado = (cuota <= capacidadPago) ? "Aceptado" : "Rechazado";
+
     creditos.push({
         cedula: clienteSeleccionado.cedula,
         nombre: clienteSeleccionado.nombre,
+        apellido: clienteSeleccionado.apellido, // Importante: incluir apellido
         monto: monto,
         tasa: tasaInteres,
-        cuota: cuota.toFixed(2)
+        plazo: plazo, // Importante: incluir plazo
+        cuota: cuota.toFixed(2),
+        estado: estado
     });
+
     pintarCreditos();
     mostrarSeccion('listaCreditos');
 }
-
+// --- PINTAR HISTORIAL (Asegurando que coincidan las columnas) ---
 function pintarCreditos() {
     let tabla = document.getElementById("tablaCreditos");
     tabla.innerHTML = "";
     creditos.forEach(cr => {
+        // Estilo visual para el estado
+        let colorEstado = (cr.estado === "Aceptado") ? "#2ecc71" : "#e74c3c";
+
         tabla.innerHTML += `<tr>
-            <td>${cr.cedula}</td><td>${cr.nombre}</td><td>${cr.monto}</td><td>${cr.tasa}%</td><td>${cr.cuota}</td>
+            <td>${cr.cedula}</td>
+            <td>${cr.nombre}</td>
+            <td>${cr.apellido}</td>
+            <td>$${cr.monto}</td>
+            <td>${cr.tasa}%</td>
+            <td>${cr.plazo} meses</td>
+            <td>$${cr.cuota}</td>
+            <td style="color: ${colorEstado}; font-weight: bold;">${cr.estado}</td>
         </tr>`;
     });
 }
@@ -119,4 +147,18 @@ function pintarCreditos() {
 function limpiar() {
     ["cedula", "nombre", "apellido", "ingresos", "egresos"].forEach(id => mostrarTextoEnCaja(id, ""));
     document.getElementById("cedula").readOnly = false;
+}
+// --- FUNCIÓN PARA ELIMINAR CLIENTES ---
+function eliminarCliente(cedula) {
+    // Filtramos el arreglo
+    clientes = clientes.filter(c => c.cedula !== cedula);
+    
+    // Si el cliente borrado estaba siendo usado en una simulación, reseteamos
+    if (clienteSeleccionado && clienteSeleccionado.cedula === cedula) {
+        clienteSeleccionado = null;
+        mostrarTexto("datosClienteCredito", "Seleccione un cliente válido");
+        document.getElementById("btnSolicitarCredito").disabled = true;
+    }
+    
+    pintarClientes(); // Refrescamos la tabla de clientes
 }
