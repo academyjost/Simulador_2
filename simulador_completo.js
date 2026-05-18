@@ -32,9 +32,9 @@ function guardarTasa() {
 
 // --- CLIENTES ---
 function guardarCliente() {
-    let cedula = recuperaraTexto("cedula");
-    let nombre = recuperaraTexto("nombre");
-    let apellido = recuperaraTexto("apellido");
+    let cedula = recuperarTexto("cedula");
+    let nombre = recuperarTexto("nombre");
+    let apellido = recuperarTexto("apellido");
     let ingresos = recuperarFloat("ingresos");
     let egresos = recuperarFloat("egresos");
 
@@ -73,7 +73,7 @@ function seleccionarCliente(cedula) {
 
 // --- CRÉDITOS ---
 function buscarClienteCredito() {
-    let ced = recuperaraTexto("buscarCedulaCredito");
+    let ced = recuperarTexto("buscarCedulaCredito");
     clienteSeleccionado = clientes.find(c => c.cedula === ced);
     if (clienteSeleccionado) {
         mostrarTexto("datosClienteCredito", `Cliente: ${clienteSeleccionado.nombre} ${clienteSeleccionado.apellido}`);
