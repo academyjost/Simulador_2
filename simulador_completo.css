@@ -102,4 +102,78 @@
       border-radius: 5px;
       margin-top: 10px;
     }
+    /* =========================================
+   ESTILOS DE LA SECCIÓN ACERCA DE
+   ========================================= */
+
+.titulo-acerca-de {
+    text-align: center;
+    color: #0ff; /* Color cyan neón */
+    text-shadow: 0 0 10px #0ff;
+}
+
+.tarjeta-perfil {
+    text-align: center;
+    padding: 30px;
+    border: 2px solid #0ff;
+    box-shadow: 0 0 15px #0ff;
+    border-radius: 10px;
+    background-color: #0a0a0a;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.foto-perfil {
+    border-radius: 50%;
+    width: 150px;
+    border: 3px solid #0ff;
+    box-shadow: 0 0 15px #0ff;
+    margin-bottom: 15px;
+}
+
+.nombre-perfil {
+    color: #0ff;
+    font-size: 1.8em;
+    text-shadow: 0 0 8px #0ff;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.rol-perfil {
+    color: #fff;
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+
+.contenedor-frase {
+    margin: 20px 0;
+    padding: 15px;
+    border-left: 4px solid #0ff;
+    background-color: rgba(0, 255, 255, 0.1);
+}
+
+.texto-frase {
+    font-style: italic;
+    color: #e0e0e0;
+    margin: 0;
+}
+
+.redes-perfil {
+    margin-top: 25px;
+}
+
+.redes-perfil a {
+    color: #0ff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #0ff;
+    transition: 0.3s ease; /* Efecto suave al pasar el mouse */
+}
+
+/* Efecto hover: Cuando el mouse pasa por encima de los enlaces */
+.redes-perfil a:hover {
+    color: #fff;
+    text-shadow: 0 0 15px #fff, 0 0 20px #0ff;
+}
   
