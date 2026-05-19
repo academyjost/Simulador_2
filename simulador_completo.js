@@ -208,3 +208,6 @@ function mostrarCreditosVIP() {
     // 3. Mandamos a pintar únicamente los registros que cumplieron la condición
     pintarCreditos(creditosFiltrados);
 }
+function AcercaDe() {
+    mostrarSeccion('acercaDe');
+}
