@@ -37,12 +37,18 @@ function guardarCliente() {
     let apellido = recuperarTexto("apellido");
     let ingresos = recuperarFloat("ingresos");
     let egresos = recuperarFloat("egresos");
+    let telefono = recuperarTexto("telefono");
+
+    if (!cedula || !nombre || !apellido || isNaN(ingresos) || isNaN(egresos)) {
+        alert("Por favor, complete todos los campos correctamente.");
+        return;
+    }
 
     let index = clientes.findIndex(c => c.cedula === cedula);
     if (index === -1) {
-        clientes.push({ cedula, nombre, apellido, ingresos, egresos });
+        clientes.push({ cedula, nombre, apellido, ingresos, egresos, telefono });
     } else {
-        clientes[index] = { cedula, nombre, apellido, ingresos, egresos };
+        clientes[index] = { cedula, nombre, apellido, ingresos, egresos, telefono };
     }
     pintarClientes();
     limpiar();
@@ -56,8 +62,10 @@ function pintarClientes() {
         tabla.innerHTML += `<tr>
             <td>${c.cedula}</td>
             <td>${c.nombre}</td>
+            <td>${c.apellido}</td>
             <td>${c.ingresos}</td>
             <td>${c.egresos}</td>
+            <td>${c.telefono}</td>
             <td>
                 <button onclick="seleccionarCliente('${c.cedula}')">Editar</button>
                 <button onclick="eliminarCliente('${c.cedula}')" style="background-color: #e74c3c; color: white; border: none; border-radius: 3px; cursor: pointer;">Borrar</button>
@@ -73,6 +81,7 @@ function seleccionarCliente(cedula) {
         mostrarTextoEnCaja("apellido", c.apellido);
         mostrarTextoEnCaja("ingresos", c.ingresos);
         mostrarTextoEnCaja("egresos", c.egresos);
+        mostrarTextoEnCaja("telefono", c.telefono);
         document.getElementById("cedula").readOnly = true;
     }
 }
@@ -139,13 +148,14 @@ function pintarCreditos() {
             <td>${cr.tasa}%</td>
             <td>${cr.plazo} meses</td>
             <td>$${cr.cuota}</td>
+            <td>$${cr.telefono}</td>
             <td style="color: ${colorEstado}; font-weight: bold;">${cr.estado}</td>
         </tr>`;
     });
 }
 
 function limpiar() {
-    ["cedula", "nombre", "apellido", "ingresos", "egresos"].forEach(id => mostrarTextoEnCaja(id, ""));
+    ["cedula", "nombre", "apellido", "ingresos", "egresos", "telefono"].forEach(id => mostrarTextoEnCaja(id, ""));
     document.getElementById("cedula").readOnly = false;
 }
 // --- FUNCIÓN PARA ELIMINAR CLIENTES ---
