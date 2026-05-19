@@ -156,12 +156,13 @@ function solicitarCredito() {
     pintarCreditos();
     mostrarSeccion('listaCreditos');
 }
-// --- PINTAR HISTORIAL (Asegurando que coincidan las columnas) ---
-function pintarCreditos() {
+// --- PINTAR HISTORIAL  ---
+function pintarCreditos(lista = creditos) {
     let tabla = document.getElementById("tablaCreditos");
     tabla.innerHTML = "";
-    creditos.forEach(cr => {
-        // Estilo visual para el estado
+    
+    lista.forEach(cr => {
+        // Estilo visual para el estado 
         let colorEstado = (cr.estado === "Aceptado") ? "#2ecc71" : "#e74c3c";
 
         tabla.innerHTML += `<tr>
@@ -195,4 +196,15 @@ function eliminarCliente(cedula) {
     }
     
     pintarClientes(); // Refrescamos la tabla de clientes
+}
+//Funcion para mostrar creditos
+function mostrarCreditosVIP() {
+    // 1. Redireccionamos visualmente a la sección de la tabla de créditos
+    mostrarSeccion('listaCreditos');
+    
+    // 2. Filtramos el arreglo global para conservar solo los elementos cuyo monto sea estrictamente mayor a 5000
+    let creditosFiltrados = creditos.filter(cr => cr.monto > 5000);
+    
+    // 3. Mandamos a pintar únicamente los registros que cumplieron la condición
+    pintarCreditos(creditosFiltrados);
 }
