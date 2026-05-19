@@ -20,16 +20,22 @@
 
 <!-- SECCIÓN 1: PARÁMETROS -->
 <section id="parametros" class="activa">
-    <h2>Configuración de Tasa</h2>
-    <div class="form-container">
+    <h2>Configuración de Parámetros</h2> <div class="form-container">
         <label>Tasa de interés anual:</label>
         <input type="number" id="tasaInteres" min="10" max="20" value="15">
         <span>%</span>
         <button class="btn-oro" onclick="guardarTasa()">Guardar Tasa</button>
         <p id="mensajeTasa"></p>
     </div>
-</section>
 
+    <div class="form-container">
+        <label>Monto máximo de crédito:</label>
+        <input type="number" id="montoMaximoInput" value="1000">
+        <span>$</span>
+        <button class="btn-oro" onclick="guardarMontoMaximo()">Guardar Monto Máximo</button>
+        <p id="mensajeMontoMax"></p>
+    </div>
+</section>
 <!-- SECCIÓN 2: CLIENTES -->
 <section id="clientes">
     <h2>Registro de Clientes</h2>

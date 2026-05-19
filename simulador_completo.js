@@ -2,7 +2,7 @@ let clientes = [];
 let creditos = [];
 let tasaInteres = 15;
 let clienteSeleccionado = null;
-
+let montoMaximo = 10000;
 // --- NAVEGACIÓN (Corrección del error classList) ---
 function ocultarSecciones() {
     const secciones = document.querySelectorAll("section");
@@ -23,13 +23,21 @@ function mostrarSeccion(id) {
 function guardarTasa() {
     let tasa = recuperarFloat("tasaInteres");
     if (tasa >= 10 && tasa <= 20) {
-        tasaInteres = tasa;
+       tasaInteres = tasa;
         mostrarTexto("mensajeTasa", "Tasa guardada: " + tasa + "%");
     } else {
         mostrarTexto("mensajeTasa", "Error: Debe ser entre 10 y 20");
     }
 }
-
+function guardarMontoMaximo() {
+    let monto = recuperarFloat("montoMaximoInput");
+    if (!isNaN(monto) && monto > 0) {
+        montoMaximo = monto;
+        mostrarTexto("mensajeMontoMax", "Monto máximo guardado: $" + montoMaximo);
+    } else {
+        mostrarTexto("mensajeMontoMax", "Error: Ingrese un valor válido mayor a 0");
+    }
+}
 // --- CLIENTES ---
 function guardarCliente() {
     let cedula = recuperarTexto("cedula");
@@ -100,6 +108,22 @@ function buscarClienteCredito() {
 function calcularCredito() {
     let monto = recuperarFloat("montoCredito");
     let plazo = recuperarInt("plazoCredito");
+
+    // --- REQUERIMIENTO DEL EXAMEN: VALIDACIÓN DE MONTO MÁXIMO ---
+    if (monto > montoMaximo) {
+        // 1. Mostrar un mensaje de error (usamos alert para que sea visible de inmediato)
+        alert("Error: El monto solicitado supera el máximo permitido de $" + montoMaximo);
+        
+        // 2. Limpiar la caja de texto donde se ingresó el monto
+        mostrarTextoEnCaja("montoCredito", ""); 
+        
+        // Limpiezas extra de seguridad:
+        mostrarTexto("resultadoCredito", ""); // Borramos cualquier cálculo previo
+        document.getElementById("btnSolicitarCredito").disabled = true; // Bloqueamos el botón
+        return; // IMPORTANTE: Esto detiene la función para que no siga calculando
+    }
+
+    // --- Si pasa la validación, sigue con el cálculo normal que ya tenías ---
     if (clienteSeleccionado && monto > 0) {
         let cuota = (monto + (monto * (tasaInteres/100))) / plazo;
         mostrarTexto("resultadoCredito", "Cuota mensual estimada: $" + cuota.toFixed(2));
