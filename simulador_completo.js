@@ -29,6 +29,7 @@ function guardarTasa() {
         mostrarTexto("mensajeTasa", "Error: Debe ser entre 10 y 20");
     }
 }
+// --- MONTAJE ---
 function guardarMontoMaximo() {
     let monto = recuperarFloat("montoMaximoInput");
     if (!isNaN(monto) && monto > 0) {
@@ -38,6 +39,7 @@ function guardarMontoMaximo() {
         mostrarTexto("mensajeMontoMax", "Error: Ingrese un valor válido mayor a 0");
     }
 }
+
 // --- CLIENTES ---
 function guardarCliente() {
     let cedula = recuperarTexto("cedula");
